@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Products-Zepto clone</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="nav">
+        <span>Zepto Clone</span>
+        <div>
+            <a href="cart.html">Cart</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="welcome-msg">Groceries in 10 mins</h2>
+        <div id="grid-container" class="grid"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const currentUser = localStorage.getItem("user");
+        if (!currentUser) window.location.href = "index.html";
+
+        document.getElementById("welcome-msg").innerText += ` (Hi, ${currentUser})`;
+
+        const container = document.getElementById("grid-container");
+
+        container.innerHTML = productsList
+            .map(
+                (item) => `
+                <div class="card">
+                    <img src="${item.image}">
+                    <h3>${item.name}</h3>
+                    <p>Price: ₹${item.price}</p>
+
+                    <a href="details.html?id=${item.id}">
+                        <button class="btn-secondary" style="font-size:12px">View Details</button>
+                    </a>
+                    <br><br>
+                    <button onclick="addToCart(${item.id})">Add to Cart</button>
+                </div>
+                `
+            )
+            .join("");
+
+        function addToCart(id) {
+            const item = productsList.find((p) => p.id === id);
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart = [...cart, item];
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Added to cart!");
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

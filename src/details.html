@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="nav">
+    <a href="products.html">← Back to Home</a>
+    <a href="cart.html">🛒 Cart</a>
+  </div>
+
+  <div class="container" style="text-align: center">
+    <div id="detail-view">Loading...</div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    // Get ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get("id"));
+
+    const product = productsList.find(p => p.id === productId);
+
+    if (product) {
+      document.getElementById("detail-view").innerHTML = `
+        <img src="${product.image}" style="width:250px; height:250px;">
+        <h1>${product.name}</h1>
+        <p style="font-size:18px; color:#555;">${product.desc}</p>
+        <h2 style="color: green; margin: 20px 0;">Price: ₹${product.price}</h2>
+        <button onclick="addCurrentToCart()" style="padding: 15px 30px; font-size: 18px;">Add to Cart</button>
+      `;
+    } else {
+      document.getElementById("detail-view").innerHTML =
+        "<h2>Product Not Found</h2>";
+    }
+
+    function addCurrentToCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Item Added!");
+    }
+  </script>
+</body>
+</html>

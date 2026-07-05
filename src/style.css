@@ -1,0 +1,102 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  width: 80%;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Headings & Colors */
+h1,
+h2,
+h3 {
+  color: #390a5d;
+  margin-bottom: 15px;
+} /* Zepto Purple */
+
+/* Buttons */
+button {
+  cursor: pointer;
+  background: #ff3f6c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #d6335c;
+}
+
+.btn-secondary {
+  background: #555;
+}
+
+/* Inputs */
+input {
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Navigation Bar */
+.nav {
+  background: #390a5d;
+  padding: 15px 30px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.nav span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Grid Layout for Products */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}

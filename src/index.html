@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login-Zepto clone</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body style="
+    display:flex;
+    justify-content:center;                              
+    align-items:center;
+    height:100vh;
+">
+    <div class="container" style="text-align:center; width:350px">
+        <h1>Zepto Clone</h1>
+        <h3>Welcome Back</h3>
+
+        <input type="email" id="email" placeholder="Email (e.g, user@test.com)" />
+        <input type="password" id="pass" placeholder="Password (e.g,1235)" />
+
+        <button onclick="handleLogin()" style="width:100%; margin-top:10px">
+            Login
+        </button>
+
+        <p id="msg" style="color:red; margin-top:10px"></p>
+
+        <p style="font-size:12px; color:gray; margin-top:10px">
+            valid Logins:<br/>
+            user@test.com/1235<br/>
+            admin@zepto.com/admin
+        </p>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        if (localStorage.getItem("user")) {
+            window.location.href = "products.html";
+        }
+
+        function handleLogin() {
+            const emailInput = document.getElementById("email").value;
+            const passInput = document.getElementById("pass").value;
+
+            const validUser = usersList.find(
+                (user) => user.email === emailInput && user.password === passInput
+            );
+
+            if (validUser) {
+                localStorage.setItem("user", validUser.email);
+                window.location.href = "products.html";
+            } else {
+                document.getElementById("msg").innerText = "Invalid Email or password!";
+            }
+        }
+    </script>
+</body>
+</html>

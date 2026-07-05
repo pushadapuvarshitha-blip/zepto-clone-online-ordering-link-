@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Cart</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="nav">
+    <a href="products.html">← Continue Shopping</a> 
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <div class="container">
+    <h2>Your Cart</h2>
+    <div id="cart-list"></div>
+    <hr />
+    <h3 id="total" style="text-align: right">Total: ₹0</h3>
+    <div style="text-align: right">
+      <button onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    // No need for data.js here, we read from LocalStorage
+    if (!localStorage.getItem("user")) window.location.href = "login.html";
+
+    function loadCart() {
+      const list = document.getElementById("cart-list");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart.length === 0) {
+        list.innerHTML = "<p>Cart is empty</p>";
+        document.getElementById("total").innerText = "Total: ₹0";
+        return;
+      }
+
+      // Render Cart Items
+      list.innerHTML = cart
+        .map(
+          (item, index) => `
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ccc; padding:15px 0;">
+            <div style="display:flex; gap:15px; align-items:center;">
+              <img src="${item.image}" width="60">
+              <div>
+                <b>${item.name}</b><br>
+                <small>Price: ₹${item.price}</small>
+              </div>
+            </div>
+            <button class="btn-secondary" onclick="remove(${index})" style="background:#ff4757;">Remove</button>
+          </div>
+        `
+        )
+        .join("");
+
+      // Calculate Total
+      const totalAmount = cart.reduce((acc, item) => acc + item.price, 0);
+      document.getElementById("total").innerText = `Total: ₹${totalAmount}`;
+    }
+
+    function remove(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length > 0) {
+        alert("Order Placed Successfully!");
+        localStorage.removeItem("cart");
+        loadCart();
+      } else {
+        alert("Cart is empty!");
+      }
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
